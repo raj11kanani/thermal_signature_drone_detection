@@ -112,18 +112,21 @@ def main():
             #     lr = TRAIN_LR_INIT * pow(TRAIN_DECAY, (global_steps.numpy() / TRAIN_DECAY_STEPS))
             
             # assign learning rate to optimizer 
-            optimizer.lr.assign(lr.numpy())
+            # optimizer.lr.assign(lr.numpy())
+            optimizer.learning_rate.assign(lr.numpy())
+
     
             # writing summary data
             with writer.as_default():
-                tf.summary.scalar("lr", optimizer.lr, step = global_steps)
+                # tf.summary.scalar("lr", optimizer.lr, step = global_steps)
+                tf.summary.scalar("lr", optimizer.learning_rate, step=global_steps)
                 tf.summary.scalar("loss/total_loss", total_loss, step = global_steps)
                 tf.summary.scalar("loss/giou_loss", giou_loss, step = global_steps)
                 tf.summary.scalar("loss/conf_loss", conf_loss, step = global_steps)
                 tf.summary.scalar("loss/prob_loss", prob_loss, step = global_steps)
             writer.flush()
 
-        return global_steps.numpy(), optimizer.lr.numpy(), giou_loss.numpy(), conf_loss.numpy(), prob_loss.numpy(), total_loss.numpy()
+        return global_steps.numpy(), optimizer.learning_rate.numpy(), giou_loss.numpy(), conf_loss.numpy(), prob_loss.numpy(), total_loss.numpy()
     
     def validate_step(image_data, target):
         

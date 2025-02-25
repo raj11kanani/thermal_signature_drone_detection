@@ -283,7 +283,7 @@ class Dataset():
             bbox_coor = bbox[1:]
             
             # one hot encoding of classes
-            onehot = np.zeros(self.num_classes, dtype=np.float)
+            onehot = np.zeros(self.num_classes, dtype=np.float32)
             onehot[bbox_class_ind] = 1.0
             
 #             # smooth one hot encoding for large number of classes
